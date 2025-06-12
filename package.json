@@ -1,0 +1,27 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "## 1. Proje Yapısı Oluşturma - Node.js ve Express.js kurulumu - Klasör yapısı oluşturma (controllers, routes, data) - package.json dosyası oluşturma ve gerekli paketleri yükleme",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saksoy/jules-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saksoy/jules-test/issues"
+  },
+  "homepage": "https://github.com/saksoy/jules-test#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
