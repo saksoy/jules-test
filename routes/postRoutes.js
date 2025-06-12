@@ -7,17 +7,18 @@ const {
   updatePost,
   deletePost,
 } = require('../controllers/postController');
-const { protect } = require('../middleware/authMiddleware');
+// Updated to use the new session-based authentication middleware
+const { ensureAuthenticated } = require('../middleware/authMiddleware');
 const { body } = require('express-validator');
 
 /**
  * @fileoverview Post routes for creating, reading, updating, and deleting posts.
- * All routes are protected and require authentication.
+ * All routes are protected and require session-based authentication.
  */
 
 /**
  * Route to create a new post.
- * Requires authentication. Validates title and content.
+ * Requires session authentication. Validates title and content.
  * @name POST /
  * @function
  * @memberof module:routes/postRoutes
@@ -27,7 +28,7 @@ const { body } = require('express-validator');
  */
 router.post(
   '/',
-  protect,
+  ensureAuthenticated, // Use the new middleware
   [
     body('title').notEmpty().withMessage('Title is required.'),
     body('content').notEmpty().withMessage('Content is required.'),
@@ -37,7 +38,7 @@ router.post(
 
 /**
  * Route to list all posts.
- * Requires authentication.
+ * Requires session authentication.
  * @name GET /
  * @function
  * @memberof module:routes/postRoutes
@@ -45,11 +46,11 @@ router.post(
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
-router.get('/', protect, getAllPosts);
+router.get('/', ensureAuthenticated, getAllPosts); // Use the new middleware
 
 /**
  * Route to get a single post by its ID.
- * Requires authentication.
+ * Requires session authentication.
  * @name GET /:id
  * @function
  * @memberof module:routes/postRoutes
@@ -57,11 +58,11 @@ router.get('/', protect, getAllPosts);
  * @param {object} req - Express request object, params.id contains the post ID.
  * @param {object} res - Express response object.
  */
-router.get('/:id', protect, getPostById);
+router.get('/:id', ensureAuthenticated, getPostById); // Use the new middleware
 
 /**
  * Route to update an existing post by its ID.
- * Requires authentication. Validates title and content.
+ * Requires session authentication. Validates title and content.
  * @name PUT /:id
  * @function
  * @memberof module:routes/postRoutes
@@ -71,7 +72,7 @@ router.get('/:id', protect, getPostById);
  */
 router.put(
   '/:id',
-  protect,
+  ensureAuthenticated, // Use the new middleware
   [
     body('title').notEmpty().withMessage('Title is required.'),
     body('content').notEmpty().withMessage('Content is required.'),
@@ -81,7 +82,7 @@ router.put(
 
 /**
  * Route to delete a post by its ID.
- * Requires authentication.
+ * Requires session authentication.
  * @name DELETE /:id
  * @function
  * @memberof module:routes/postRoutes
@@ -89,6 +90,6 @@ router.put(
  * @param {object} req - Express request object, params.id contains the post ID.
  * @param {object} res - Express response object.
  */
-router.delete('/:id', protect, deletePost);
+router.delete('/:id', ensureAuthenticated, deletePost); // Use the new middleware
 
 module.exports = router;
